@@ -96,3 +96,56 @@ def criar_reserva(reservas):
         reservas.pop()
         print("\nErro ao salvar a reserva. Tente novamente.")
         return False
+
+
+def cancelar_reserva(reservas):
+    """
+    Cancela uma reserva existente baseado no código hash.
+    
+    Args:
+        reservas (list): Lista de reservas existentes
+        
+    Returns:
+        bool: True se a reserva foi cancelada, False caso contrário
+    """
+    print("\n" + "="*60)
+    print("CANCELAR RESERVA")
+    print("="*60 + "\n")
+    
+    try:
+        codigo_hash = int(input("Digite o código (HASH) da reserva: "))
+    except ValueError:
+        print("\nErro! Digite um código válido.")
+        return False
+    
+    # Busca a reserva
+    for indice, reserva in enumerate(reservas):
+        if reserva['hash'] == codigo_hash:
+            # Verifica se a reserva já passou
+            if reserva['checkout'] < datetime.today():
+                print("\n" + "="*60)
+                print("ESSA RESERVA NÃO PODE SER CANCELADA!")
+                print("="*60)
+                print("O período da reserva já foi concluído.")
+                print("="*60 + "\n")
+                return False
+            
+            # Remove a reserva
+            reservas.pop(indice)
+            
+            if salvar_reservas(reservas):
+                print("\n" + "="*60)
+                print("RESERVA CANCELADA COM SUCESSO!")
+                print("="*60)
+                print(f"Código: {codigo_hash}")
+                print(f"Responsável: {reserva['nome']}")
+                print("="*60 + "\n")
+                return True
+            else:
+                # Restaura a reserva se não conseguiu salvar
+                reservas.insert(indice, reserva)
+                print("\nErro ao salvar as alterações. Tente novamente.")
+                return False
+    
+    print(f"\nReserva com código {codigo_hash} não encontrada.")
+    return False
