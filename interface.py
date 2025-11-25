@@ -4,7 +4,7 @@ Contém funções para exibição de informações e coleta de dados.
 """
 
 from datetime import datetime
-from Projeto_Hotel.config import TIPOS_QUARTOS
+from config import TIPOS_QUARTOS
 from utils import limpar_terminal, formatar_valor_monetario, validar_entrada_inteira
 from calculo import calcular_estatisticas, calcular_dias_estadia
 

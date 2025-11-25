@@ -5,7 +5,7 @@ Gerencia carregamento e salvamento de reservas em arquivo.
 
 import os
 import pickle
-from Projeto_Hotel.config import DIRETORIO_DADOS, ARQUIVO_RESERVAS
+from config import DIRETORIO_DADOS, ARQUIVO_RESERVAS
 
 
 def obter_caminho_arquivo():

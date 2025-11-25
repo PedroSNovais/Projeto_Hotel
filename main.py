@@ -30,7 +30,7 @@ def executar_sistema():
     
     
     while True:
-        
+        exibir_menu()
         opcao = validar_entrada_inteira(
             'Digite o código da opção desejada: ',
             minimo=1,
@@ -57,6 +57,8 @@ def executar_sistema():
             print("ENCERRANDO O SISTEMA")
             print("Obrigado por utilizar o Hotel Flor de Lótus!")
             print("="*60 + "\n")
+
+            break
         
         # Pausa para o usuário visualizar a informação
         if opcao != 6:

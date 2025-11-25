@@ -3,7 +3,7 @@ Módulo de cálculos e validações.
 Contém funções para cálculo de valores, estatísticas e validação de reservas.
 """
 
-from Projeto_Hotel.config import QUARTOS_QUANTIDADE, QUARTOS_VALOR
+from config import QUARTOS_QUANTIDADE, QUARTOS_VALOR
 
 
 def calcular_valor_reserva(tipo_quarto, quantidade_quartos, dias_estadia):
