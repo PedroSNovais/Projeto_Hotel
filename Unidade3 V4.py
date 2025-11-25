@@ -1,10 +1,14 @@
 from datetime import datetime
 import os
 import pickle
-
-
+from config import *
+from arquivo import *
     
 reservas = carregar_reservas()
+
+quartos_quantidade = QUARTOS_QUANTIDADE
+quartos_valor = QUARTOS_VALOR
+tipos = TIPOS_QUARTOS
 
 def main():
     
