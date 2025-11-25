@@ -5,6 +5,7 @@ Contém funções para cálculo de valores, estatísticas e validação de reser
 
 from Projeto_Hotel.config import QUARTOS_QUANTIDADE, QUARTOS_VALOR
 
+
 def calcular_valor_reserva(tipo_quarto, quantidade_quartos, dias_estadia):
     """
     Calcula o valor total de uma reserva.
@@ -61,3 +62,59 @@ def verificar_disponibilidade(reservas, tipo_quarto, data_checkin, data_checkout
     quartos_disponiveis = QUARTOS_QUANTIDADE[tipo_quarto] - quartos_ocupados
     
     return quartos_disponiveis >= quantidade_solicitada
+
+
+def calcular_estatisticas(reservas):
+    """
+    Calcula estatísticas gerais sobre as reservas.
+    
+    Args:
+        reservas (list): Lista de reservas
+        
+    Returns:
+        dict: Dicionário com as estatísticas ou None se não houver reservas
+    """
+    if not reservas:
+        return None
+    
+    quantidade_reservas = len(reservas)
+    reserva_mais_cara = reservas[0]
+    reserva_mais_longa = reservas[0]
+    dias_mais_longa = calcular_dias_estadia(
+        reserva_mais_longa['checkin'],
+        reserva_mais_longa['checkout']
+    )
+    
+    quartos_reservados = {
+        "standard": 0,
+        "premium": 0,
+        "luxo": 0
+    }
+    
+    soma_total_valores = 0.0
+    
+    for reserva in reservas:
+        # Atualiza reserva mais cara
+        if reserva["valor"] > reserva_mais_cara["valor"]:
+            reserva_mais_cara = reserva
+        
+        # Atualiza reserva mais longa
+        dias_reserva = calcular_dias_estadia(reserva['checkin'], reserva['checkout'])
+        if dias_reserva > dias_mais_longa:
+            reserva_mais_longa = reserva
+            dias_mais_longa = dias_reserva
+        
+        # Conta quartos reservados por tipo
+        quartos_reservados[reserva["tipo_quarto"]] += reserva["quantidade_quartos"]
+        
+        # Soma valores
+        soma_total_valores += reserva["valor"]
+    
+    return {
+        'quantidade_reservas': quantidade_reservas,
+        'soma_total_valores': soma_total_valores,
+        'reserva_mais_cara': reserva_mais_cara,
+        'reserva_mais_longa': reserva_mais_longa,
+        'dias_mais_longa': dias_mais_longa,
+        'quartos_reservados': quartos_reservados
+    }
