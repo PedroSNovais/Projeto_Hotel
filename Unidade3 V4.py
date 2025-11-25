@@ -6,10 +6,6 @@ import pickle
     
 reservas = carregar_reservas()
 
-quartos_quantidade = {"standard": 10, "premium": 5, "luxo": 3}
-quartos_valor = {"standard": 100.00, "premium": 180.00, "luxo": 250.00}
-tipos = ("standard", "premium", "luxo")
-
 def main():
     
     cod = 0
